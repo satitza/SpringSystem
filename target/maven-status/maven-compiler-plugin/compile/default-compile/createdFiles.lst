@@ -1,1 +1,12 @@
+com\anonymous\spring\system\config\security\PasswordEncoderConfig.class
+com\anonymous\spring\system\model\enums\AuthorityEnum.class
+com\anonymous\spring\system\config\security\AuthFailureHandler.class
+com\anonymous\spring\system\config\security\WebSecurityConfig.class
+com\anonymous\spring\system\model\entity\Role.class
+com\anonymous\spring\system\config\WebMvcConfiguration.class
+com\anonymous\spring\system\model\dto\LoginRequest.class
+com\anonymous\spring\system\model\enums\RoleEnum.class
+com\anonymous\spring\system\config\security\AuthSuccessHandler.class
+com\anonymous\spring\system\model\entity\Authority.class
 com\anonymous\spring\system\ComAnonymousSpringSystemApplication.class
+com\anonymous\spring\system\model\entity\User.class

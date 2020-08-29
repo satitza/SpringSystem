@@ -4,8 +4,10 @@ com\anonymous\spring\system\config\security\AuthFailureHandler.class
 com\anonymous\spring\system\config\security\WebSecurityConfig.class
 com\anonymous\spring\system\model\entity\Role.class
 com\anonymous\spring\system\config\security\UserDetailsServiceImpl.class
+com\anonymous\spring\system\config\security\ActiveDirectoryConfig.class
 com\anonymous\spring\system\config\WebMvcConfiguration.class
 com\anonymous\spring\system\repository\UserRepository.class
+com\anonymous\spring\system\config\security\ActiveDirectoryConfig$1.class
 com\anonymous\spring\system\model\dto\LoginRequest.class
 com\anonymous\spring\system\model\enums\RoleEnum.class
 com\anonymous\spring\system\config\security\AuthSuccessHandler.class

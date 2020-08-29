@@ -1,4 +1,5 @@
 com\anonymous\spring\system\config\security\PasswordEncoderConfig.class
+com\anonymous\spring\system\service\impl\UserServiceImpl.class
 com\anonymous\spring\system\model\enums\AuthorityEnum.class
 com\anonymous\spring\system\config\security\AuthFailureHandler.class
 com\anonymous\spring\system\config\security\WebSecurityConfig.class
@@ -15,4 +16,5 @@ com\anonymous\spring\system\model\entity\Authority.class
 com\anonymous\spring\system\repository\RoleRepository.class
 com\anonymous\spring\system\ComAnonymousSpringSystemApplication.class
 com\anonymous\spring\system\model\entity\User.class
+com\anonymous\spring\system\service\UserService.class
 com\anonymous\spring\system\repository\AuthorityRepository.class

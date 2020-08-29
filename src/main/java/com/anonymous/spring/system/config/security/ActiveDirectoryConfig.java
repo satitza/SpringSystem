@@ -42,7 +42,7 @@ public class ActiveDirectoryConfig {
         activeDirectoryLdapAuthenticationProvider.setUserDetailsContextMapper(new UserDetailsContextMapper() {
             @Override
             public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
-                return userRepository.findUserByUsername(username)
+                return userRepository.findByUsername(username)
                         .map(e -> {
                             e.getAuthorities();
                             return e;

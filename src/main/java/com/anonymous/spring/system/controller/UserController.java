@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +26,9 @@ public class UserController {
 
     private final UserService userService;
 
-    //private final RoleRepository roleRepository;
+    // private final RoleRepository roleRepository;
 
-    //private final AuthorityRepository authorityRepository;
+    // private final AuthorityRepository authorityRepository;
 
     public UserController(UserServiceImpl userService/*, RoleRepository roleRepository, AuthorityRepository authorityRepository*/) {
         this.userService = userService;
@@ -37,6 +39,16 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Collection<User>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(this.userService.getAllUsers());
+    }
+
+    @GetMapping("/current")
+    public ResponseEntity<Object> getCurrentUser(Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            return ResponseEntity.status(HttpStatus.OK).body(userDetails);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authenticated.");
+        }
     }
 
     @PostMapping

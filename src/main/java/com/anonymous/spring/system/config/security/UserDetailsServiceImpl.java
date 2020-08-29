@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         if (username == null) {
@@ -37,17 +39,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             Optional<User> findUser = this.userRepository.findByUsername(username);
             if (findUser.isPresent() && findUser.get().isEnabled()) {
-
-
-                /*Collection<GrantedAuthority> authorities = new ArrayList<>();
+                Collection<GrantedAuthority> authorities = new ArrayList<>();
                 authorities.addAll(findUser.get().getAuthorities());
-                authorities.addAll(mapRolesToAuthorities(findUser.get().getRoles()));*/
-
-                /*for (Role role : findUser.get().getRoles()) {
-                    System.out.println(role.getName());
-                }*/
-
-                user = new org.springframework.security.core.userdetails.User(findUser.get().getUsername(), findUser.get().getPassword(), findUser.get().getAuthorities());
+                authorities.addAll(mapRolesToAuthorities(findUser.get().getRoles()));
+                user = new org.springframework.security.core.userdetails.User(findUser.get().getUsername(), findUser.get().getPassword(), authorities);
             } else {
                 throw new BadCredentialsException("ไม่พบบัญชีผู้ใช้งาน");
             }

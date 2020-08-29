@@ -1,6 +1,7 @@
 package com.anonymous.spring.system.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,9 +20,11 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
+    @NotNull
     @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;

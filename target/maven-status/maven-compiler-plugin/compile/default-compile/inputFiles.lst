@@ -15,5 +15,6 @@ D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\config\se
 D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\model\entity\User.java
 D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\ComAnonymousSpringSystemApplication.java
 D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\config\security\ActiveDirectoryConfig.java
+D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\controller\UserController.java
 D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\repository\RoleRepository.java
 D:\Project\Java\SpringSystem\src\main\java\com\anonymous\spring\system\config\security\AuthFailureHandler.java

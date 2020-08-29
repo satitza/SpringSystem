@@ -1,5 +1,6 @@
 package com.anonymous.spring.system.config.security;
 
+import com.anonymous.spring.system.model.entity.Authority;
 import com.anonymous.spring.system.model.entity.Role;
 import com.anonymous.spring.system.model.entity.User;
 import com.anonymous.spring.system.repository.UserRepository;
@@ -36,9 +37,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             Optional<User> findUser = this.userRepository.findByUsername(username);
             if (findUser.isPresent() && findUser.get().isEnabled()) {
+
+
                 /*Collection<GrantedAuthority> authorities = new ArrayList<>();
                 authorities.addAll(findUser.get().getAuthorities());
                 authorities.addAll(mapRolesToAuthorities(findUser.get().getRoles()));*/
+
+                /*for (Role role : findUser.get().getRoles()) {
+                    System.out.println(role.getName());
+                }*/
+
                 user = new org.springframework.security.core.userdetails.User(findUser.get().getUsername(), findUser.get().getPassword(), findUser.get().getAuthorities());
             } else {
                 throw new BadCredentialsException("ไม่พบบัญชีผู้ใช้งาน");

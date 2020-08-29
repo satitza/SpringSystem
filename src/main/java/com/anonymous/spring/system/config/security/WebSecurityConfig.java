@@ -1,5 +1,7 @@
 package com.anonymous.spring.system.config.security;
 
+import com.anonymous.spring.system.model.entity.Role;
+import com.anonymous.spring.system.model.enums.RoleEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -79,6 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()
+                /*.hasAnyRole(RoleEnum.USER.name(), RoleEnum.MANAGER.name(), RoleEnum.ADMIN.name())*/
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

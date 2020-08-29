@@ -1,6 +1,7 @@
 package com.anonymous.spring.system.config.security;
 
 import com.anonymous.spring.system.model.entity.Role;
+import com.anonymous.spring.system.model.enums.AuthorityEnum;
 import com.anonymous.spring.system.model.enums.RoleEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
         // auth.authenticationProvider(activeDirectoryLdapAuthenticationProvider);
     }
@@ -80,8 +81,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/public/**", "/login").permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/**").authenticated()
-                /*.hasAnyRole(RoleEnum.USER.name(), RoleEnum.MANAGER.name(), RoleEnum.ADMIN.name())*/
+                /*.antMatchers("/api/**").authenticated()*/
+                .antMatchers("/api/user/**").hasAnyRole(RoleEnum.USER.name(), RoleEnum.IT.name(), RoleEnum.MANAGER.name(), RoleEnum.ADMIN.name())
+                .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.name())
+                .antMatchers("/api/admin/public").hasAuthority("ACCESS_PUBLIC_API")
+                .antMatchers("/api/admin/private").hasAuthority("ACCESS_PRIVATE_API")
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

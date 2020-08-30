@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.anonymous.spring.system.ComAnonymousSpringSystemApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.283 s - in com.anonymous.spring.system.ComAnonymousSpringSystemApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.851 s - in com.anonymous.spring.system.ComAnonymousSpringSystemApplicationTests

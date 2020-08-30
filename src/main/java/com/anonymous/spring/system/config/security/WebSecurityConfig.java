@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
@@ -38,7 +39,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        /*User.UserBuilder user = User.withDefaultPasswordEncoder();
+        auth.inMemoryAuthentication()
+                .withUser(user.username("anonymous").password("dr823c1HEE").roles("ADMIN").authorities("READ_API"));*/
+
         auth.authenticationProvider(authenticationProvider());
         // auth.authenticationProvider(activeDirectoryLdapAuthenticationProvider);
     }
@@ -78,14 +84,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/public/**", "/login").permitAll()
+                .antMatchers("/public/**").permitAll()
                 .and()
                 .authorizeRequests()
                 /*.antMatchers("/api/**").authenticated()*/
-                .antMatchers("/api/user/**").hasAnyRole(RoleEnum.USER.name(), RoleEnum.IT.name(), RoleEnum.MANAGER.name(), RoleEnum.ADMIN.name())
+                .antMatchers("/api/user/**").hasAuthority("ACCESS_PUBLIC_API")
                 .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.name())
-                .antMatchers("/api/admin/public").hasAuthority("ACCESS_PUBLIC_API")
-                .antMatchers("/api/admin/private").hasAuthority("ACCESS_PRIVATE_API")
+                .antMatchers("/api/home/**").hasAuthority("READ_API")
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

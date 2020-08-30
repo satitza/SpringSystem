@@ -1,6 +1,5 @@
 package com.anonymous.spring.system.config.security;
 
-import com.anonymous.spring.system.model.entity.Authority;
 import com.anonymous.spring.system.model.entity.Role;
 import com.anonymous.spring.system.model.entity.User;
 import com.anonymous.spring.system.repository.UserRepository;

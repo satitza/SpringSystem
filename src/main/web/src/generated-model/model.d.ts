@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.23.603 on 2020-08-30 11:27:34.
+// Generated using typescript-generator version 2.23.603 on 2020-08-30 11:38:07.
 
 export interface Page<T> extends Slice<T> {
     totalPages?: number;
@@ -12,10 +12,10 @@ export interface Slice<T> extends Streamable<T> {
     size?: number;
     content?: T[];
     sort?: any;
+    numberOfElements?: number;
+    pageable?: Pageable;
     last?: boolean;
     first?: boolean;
-    pageable?: Pageable;
-    numberOfElements?: number;
 }
 
 export interface LoginRequest {
@@ -47,9 +47,9 @@ export interface User extends UserDetails {
 export interface Pageable {
     offset?: number;
     sort?: any;
-    pageNumber?: number;
     unpaged?: boolean;
     pageSize?: number;
+    pageNumber?: number;
     paged?: boolean;
 }
 
@@ -59,12 +59,12 @@ export interface GrantedAuthority {
 
 export interface UserDetails {
     enabled?: boolean;
-    username?: string;
     password?: string;
+    username?: string;
+    accountNonExpired?: boolean;
+    credentialsNonExpired?: boolean;
     accountNonLocked?: boolean;
     authorities?: GrantedAuthority[];
-    credentialsNonExpired?: boolean;
-    accountNonExpired?: boolean;
 }
 
 export interface Streamable<T> extends Supplier<Stream<T>> {

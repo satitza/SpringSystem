@@ -2,11 +2,18 @@ package com.anonymous.spring.system.model.enums;
 
 public enum RoleEnum {
 
-    ADMIN(),
-    MANAGER(),
-    IT(),
-    USER();
+    ADMIN("ADMIN"),
+    MANAGER("MANAGER"),
+    IT("IT"),
+    USER("USER");
 
-    RoleEnum() {
+    private final String name;
+
+    RoleEnum(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return this.name;
     }
 }

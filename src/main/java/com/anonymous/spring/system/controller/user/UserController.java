@@ -1,21 +1,19 @@
-package com.anonymous.spring.system.controller;
+package com.anonymous.spring.system.controller.user;
 
-import com.anonymous.spring.system.model.entity.Authority;
 import com.anonymous.spring.system.model.entity.User;
-import com.anonymous.spring.system.repository.AuthorityRepository;
-import com.anonymous.spring.system.repository.RoleRepository;
+import com.anonymous.spring.system.model.enums.RoleEnum;
 import com.anonymous.spring.system.service.UserService;
 import com.anonymous.spring.system.service.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController

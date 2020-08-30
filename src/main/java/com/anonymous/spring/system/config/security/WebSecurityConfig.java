@@ -88,9 +88,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 /*.antMatchers("/api/**").authenticated()*/
-                .antMatchers("/api/user/**").hasAuthority("ACCESS_PUBLIC_API")
-                .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.name())
-                .antMatchers("/api/home/**").hasAuthority("READ_API")
+                .antMatchers("/api/user/current").hasAuthority(AuthorityEnum.ACCESS_PUBLIC_API.getValue())
+                .antMatchers("/api/user/delete/**").hasAuthority(AuthorityEnum.DELETE_API.getValue())
+                .antMatchers("/api/home/read").hasAuthority(AuthorityEnum.READ_API.getValue())
+                .antMatchers("/api/home/edit").hasAuthority(AuthorityEnum.EDIT_API.getValue())
+                .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.getValue())
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

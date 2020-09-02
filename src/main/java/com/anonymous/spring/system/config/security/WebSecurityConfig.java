@@ -93,8 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/user/current").hasAuthority(AuthorityEnum.ACCESS_PUBLIC_API.getValue())
                 .antMatchers("/api/user/delete/**").hasAuthority(AuthorityEnum.DELETE_API.getValue())
                 .antMatchers("/api/home/read").hasAuthority(AuthorityEnum.READ_API.getValue())
-                .antMatchers("/api/home/edit").hasAuthority(AuthorityEnum.EDIT_API.getValue())
+                .antMatchers("/api/home/edit").hasAuthority(AuthorityEnum.DELETE_API.getValue())
                 .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.getValue())
+                .antMatchers("/api/admin/read").hasAuthority(AuthorityEnum.READ_API.getValue())
+                .antMatchers("/api/admin/edit").hasAuthority(AuthorityEnum.EDIT_API.getValue())
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

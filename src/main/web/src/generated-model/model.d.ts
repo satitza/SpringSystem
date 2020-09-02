@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.23.603 on 2020-08-31 11:19:23.
+// Generated using typescript-generator version 2.23.603 on 2020-09-02 17:47:58.
 
 export interface Page<T> extends Slice<T> {
     totalPages?: number;
@@ -12,10 +12,10 @@ export interface Slice<T> extends Streamable<T> {
     sort?: any;
     size?: number;
     content?: T[];
+    numberOfElements?: number;
     first?: boolean;
     last?: boolean;
     pageable?: Pageable;
-    numberOfElements?: number;
 }
 
 export interface LoginRequest {
@@ -29,10 +29,47 @@ export interface Authority extends GrantedAuthority {
     description?: string;
 }
 
+export interface Course {
+    id?: number;
+    title?: string;
+    instructor?: Instructor;
+    reviews?: Review[];
+    students?: Student[];
+}
+
+export interface Instructor {
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    instructorDetail?: InstructorDetail;
+    course?: Course[];
+}
+
+export interface InstructorDetail {
+    id?: number;
+    youtubeChannel?: string;
+    hobBy?: string;
+    instructor?: Instructor;
+}
+
+export interface Review {
+    id?: number;
+    comment?: string;
+}
+
 export interface Role {
     id?: number;
     name?: string;
     description?: string;
+}
+
+export interface Student {
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    courses?: Course[];
 }
 
 export interface User extends UserDetails {
@@ -59,12 +96,12 @@ export interface GrantedAuthority {
 
 export interface UserDetails {
     enabled?: boolean;
+    password?: string;
+    username?: string;
     accountNonExpired?: boolean;
     accountNonLocked?: boolean;
     credentialsNonExpired?: boolean;
     authorities?: GrantedAuthority[];
-    password?: string;
-    username?: string;
 }
 
 export interface Streamable<T> extends Supplier<Stream<T>> {

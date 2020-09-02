@@ -5,6 +5,7 @@ com/anonymous/spring/system/model/dto/LoginRequest.class
 com/anonymous/spring/system/model/enums/AuthorityEnum.class
 com/anonymous/spring/system/service/UserService.class
 com/anonymous/spring/system/repository/AuthorityRepository.class
+com/anonymous/spring/system/model/entity/Student.class
 com/anonymous/spring/system/repository/RoleRepository.class
 com/anonymous/spring/system/config/security/WebSecurityConfig.class
 com/anonymous/spring/system/model/entity/Role.class
@@ -17,7 +18,12 @@ com/anonymous/spring/system/config/security/ActiveDirectoryConfig.class
 com/anonymous/spring/system/config/security/PasswordEncoderConfig.class
 com/anonymous/spring/system/config/WebMvcConfiguration.class
 com/anonymous/spring/system/controller/user/UserController.class
+com/anonymous/spring/system/config/security/SessionConfiguration.class
 com/anonymous/spring/system/model/entity/User.class
 com/anonymous/spring/system/config/security/AuthSuccessHandler.class
+com/anonymous/spring/system/model/entity/Course.class
 com/anonymous/spring/system/model/entity/Authority.class
 com/anonymous/spring/system/service/impl/UserServiceImpl.class
+com/anonymous/spring/system/model/entity/Instructor.class
+com/anonymous/spring/system/model/entity/Review.class
+com/anonymous/spring/system/model/entity/InstructorDetail.class

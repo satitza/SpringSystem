@@ -69,7 +69,8 @@ export class AuthenService {
   }
 
   async logout() {
-    this.http.get('logout').subscribe(res => {
+    // @ts-ignore
+    this.http.post('logout').subscribe(res => {
       this.clearAuthen();
       this.router.navigate(['/login']).then(() => {
         window.location.reload();

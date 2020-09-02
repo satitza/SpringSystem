@@ -17,9 +17,9 @@ public class AdminController {
         return "admin read";
     }
 
-    @GetMapping("write")
-    public String write() {
-        return "admin write";
+    @GetMapping("edit")
+    public String edit() {
+        return "admin edit";
     }
 
     @GetMapping("delete")

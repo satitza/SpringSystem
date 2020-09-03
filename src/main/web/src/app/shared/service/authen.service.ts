@@ -87,5 +87,4 @@ export class AuthenService {
   private clearStorage() {
     this.localStorage.clear();
   }
-
 }

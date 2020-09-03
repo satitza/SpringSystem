@@ -20,7 +20,7 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Login History',
-        url: '',
+        url: '/admin/log-history',
         icon: 'icon-puzzle'
       }
     ]

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.23.603 on 2020-09-03 13:44:49.
+// Generated using typescript-generator version 2.23.603 on 2020-09-03 14:19:45.
 
 export interface Page<T> extends Slice<T> {
     totalPages?: number;

@@ -408,6 +408,21 @@ var navItems = [
     },
     {
         title: true,
+        name: 'Admin'
+    },
+    {
+        name: 'Admin',
+        url: '',
+        children: [
+            {
+                name: 'Login History',
+                url: '',
+                icon: 'icon-puzzle'
+            }
+        ]
+    },
+    {
+        title: true,
         name: 'Theme'
     },
     {

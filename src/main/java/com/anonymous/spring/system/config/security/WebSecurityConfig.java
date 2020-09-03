@@ -3,6 +3,9 @@ package com.anonymous.spring.system.config.security;
 import com.anonymous.spring.system.model.entity.Role;
 import com.anonymous.spring.system.model.enums.AuthorityEnum;
 import com.anonymous.spring.system.model.enums.RoleEnum;
+import com.anonymous.spring.system.service.LoginHistoryService;
+import com.anonymous.spring.system.service.impl.LoginHistoryServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -33,10 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider;
 
-    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider) {
+    private final LoginHistoryServiceImpl loginHistoryService;
+
+    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider, LoginHistoryServiceImpl loginHistoryService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.activeDirectoryLdapAuthenticationProvider = activeDirectoryLdapAuthenticationProvider;
+        this.loginHistoryService = loginHistoryService;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthSuccessHandler authSuccessHandler() {
-        return new AuthSuccessHandler();
+        return new AuthSuccessHandler(this.loginHistoryService);
     }
 
     @Bean
@@ -97,6 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.getValue())
                 .antMatchers("/api/admin/read").hasAuthority(AuthorityEnum.READ_API.getValue())
                 .antMatchers("/api/admin/edit").hasAuthority(AuthorityEnum.EDIT_API.getValue())
+                .antMatchers("/api/log/**").hasRole(RoleEnum.ADMIN.getValue())
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

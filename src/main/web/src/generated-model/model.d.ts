@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.23.603 on 2020-09-02 17:47:58.
+// Generated using typescript-generator version 2.23.603 on 2020-09-03 13:44:49.
 
 export interface Page<T> extends Slice<T> {
     totalPages?: number;
@@ -53,6 +53,13 @@ export interface InstructorDetail {
     instructor?: Instructor;
 }
 
+export interface LoginHistory {
+    id?: number;
+    loginDateTime?: any;
+    ipAddress?: string;
+    loginUser?: User;
+}
+
 export interface Review {
     id?: number;
     comment?: string;
@@ -84,10 +91,10 @@ export interface User extends UserDetails {
 export interface Pageable {
     sort?: any;
     offset?: number;
-    paged?: boolean;
-    unpaged?: boolean;
     pageNumber?: number;
     pageSize?: number;
+    paged?: boolean;
+    unpaged?: boolean;
 }
 
 export interface GrantedAuthority {

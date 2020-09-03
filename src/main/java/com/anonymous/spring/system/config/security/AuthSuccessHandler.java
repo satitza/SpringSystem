@@ -1,7 +1,9 @@
 package com.anonymous.spring.system.config.security;
 
-import org.springframework.context.annotation.Configuration;
+import com.anonymous.spring.system.service.LoginHistoryService;
+import com.anonymous.spring.system.service.impl.LoginHistoryServiceImpl;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +12,35 @@ import java.io.IOException;
 
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
+    private final LoginHistoryService loginHistoryService;
+
+    public AuthSuccessHandler(LoginHistoryServiceImpl loginHistoryService) {
+        this.loginHistoryService = loginHistoryService;
+    }
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+
+        try {
+            this.loginHistoryService.saveLog((UserDetails) authentication.getPrincipal(), getClientIp(httpServletRequest));
+        } catch (RuntimeException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         httpServletResponse.getWriter().write("{ \"success\": \"You are authenticated.\" }");
         httpServletResponse.setContentType("application/json");
+    }
+
+
+    private static String getClientIp(HttpServletRequest request) {
+        String remoteAddr = "";
+        if (request != null) {
+            remoteAddr = request.getHeader("X-FORWARDED-FOR");
+            if (remoteAddr == null || "".equals(remoteAddr)) {
+                remoteAddr = request.getRemoteAddr();
+            }
+        }
+        return remoteAddr;
     }
 }

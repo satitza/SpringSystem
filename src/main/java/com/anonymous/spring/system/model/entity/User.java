@@ -1,5 +1,6 @@
 package com.anonymous.spring.system.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
@@ -148,5 +149,4 @@ public class User implements UserDetails, Serializable {
     public void setAuthorities(Collection<Authority> authorities) {
         this.authorities = authorities;
     }
-
 }

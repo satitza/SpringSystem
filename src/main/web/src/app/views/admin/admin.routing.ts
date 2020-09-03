@@ -4,7 +4,10 @@ import {LogHistoryComponent} from "./log-history/log-history.component";
 
 export const routes: Routes = [
   {
-    path: 'log-history',
+    path: 'history',
+    data: {
+      title: 'History'
+    },
     component: LogHistoryComponent
   }
 ]

@@ -15,15 +15,8 @@ export const navItems: INavData[] = [
     name: 'Admin'
   },
   {
-    name: 'Admin',
-    url: '',
-    children: [
-      {
-        name: 'Login History',
-        url: '/admin/log-history',
-        icon: 'icon-puzzle'
-      }
-    ]
+    name: 'Login History',
+    url: '/admin/history'
   },
   {
     title: true,

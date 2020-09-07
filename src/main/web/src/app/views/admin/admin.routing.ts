@@ -4,11 +4,23 @@ import {LogHistoryComponent} from "./log-history/log-history.component";
 
 export const routes: Routes = [
   {
-    path: 'history',
+    path: '',
     data: {
-      title: 'History'
+      title: 'Admin'
     },
-    component: LogHistoryComponent
+    children: [
+      {
+        path: '',
+        redirectTo: 'history'
+      },
+      {
+        path: 'history',
+        data: {
+          title: 'History'
+        },
+        component: LogHistoryComponent
+      }
+    ]
   }
 ]
 

@@ -104,6 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/read").hasAuthority(AuthorityEnum.READ_API.getValue())
                 .antMatchers("/api/admin/edit").hasAuthority(AuthorityEnum.EDIT_API.getValue())
                 .antMatchers("/api/log/**").hasRole(RoleEnum.ADMIN.getValue())
+                .antMatchers("/actuator/**").hasRole(RoleEnum.ADMIN.getValue())
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, e) -> {

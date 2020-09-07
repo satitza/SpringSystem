@@ -11,12 +11,15 @@ export const navItems: INavData[] = [
     }
   },
   {
-    title: true,
-    name: 'Admin'
-  },
-  {
-    name: 'Login History',
-    url: '/admin/history'
+    name: 'Administrator',
+    url: '/admin',
+    children: [
+      {
+        name: 'History',
+        url: '/admin/history',
+        icon: 'icon-pencil'
+      }
+    ]
   },
   {
     title: true,

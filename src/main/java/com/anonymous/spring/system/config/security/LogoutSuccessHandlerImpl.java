@@ -1,7 +1,7 @@
 package com.anonymous.spring.system.config.security;
 
-import com.anonymous.spring.system.service.LoginHistoryService;
-import com.anonymous.spring.system.service.impl.LoginHistoryServiceImpl;
+import com.anonymous.spring.system.service.LogHistoryService;
+import com.anonymous.spring.system.service.impl.LogHistoryServiceImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -12,17 +12,17 @@ import java.io.IOException;
 
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
-    private final LoginHistoryService loginHistoryService;
+    private final LogHistoryService logHistoryService;
 
-    public LogoutSuccessHandlerImpl(LoginHistoryServiceImpl loginHistoryService) {
-        this.loginHistoryService = loginHistoryService;
+    public LogoutSuccessHandlerImpl(LogHistoryServiceImpl loginHistoryService) {
+        this.logHistoryService = loginHistoryService;
     }
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
 
         try {
-            this.loginHistoryService.saveLogLogout((UserDetails) authentication.getPrincipal(), LoginHistoryServiceImpl.getClientIp(httpServletRequest));
+            this.logHistoryService.saveLogLogout((UserDetails) authentication.getPrincipal(), LogHistoryServiceImpl.getClientIp(httpServletRequest));
         } catch (RuntimeException ex) {
             System.out.println(ex.getMessage());
         }

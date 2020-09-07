@@ -2,7 +2,7 @@ package com.anonymous.spring.system.config.security;
 
 import com.anonymous.spring.system.model.enums.AuthorityEnum;
 import com.anonymous.spring.system.model.enums.RoleEnum;
-import com.anonymous.spring.system.service.impl.LoginHistoryServiceImpl;
+import com.anonymous.spring.system.service.impl.LogHistoryServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -33,13 +32,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider;
 
-    private final LoginHistoryServiceImpl loginHistoryService;
+    private final LogHistoryServiceImpl logHistoryService;
 
-    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider, LoginHistoryServiceImpl loginHistoryService) {
+    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider, LogHistoryServiceImpl logHistoryService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.activeDirectoryLdapAuthenticationProvider = activeDirectoryLdapAuthenticationProvider;
-        this.loginHistoryService = loginHistoryService;
+        this.logHistoryService = logHistoryService;
     }
 
     @Override
@@ -73,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthSuccessHandler authSuccessHandler() {
-        return new AuthSuccessHandler(this.loginHistoryService);
+        return new AuthSuccessHandler(this.logHistoryService);
     }
 
     @Bean
@@ -83,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
-        return new LogoutSuccessHandlerImpl(this.loginHistoryService);
+        return new LogoutSuccessHandlerImpl(this.logHistoryService);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.anonymous.spring.system.service.impl;
 import com.anonymous.spring.system.model.entity.LoginHistory;
 import com.anonymous.spring.system.repository.LoginHistoryRepository;
 import com.anonymous.spring.system.repository.UserRepository;
-import com.anonymous.spring.system.service.LoginHistoryService;
+import com.anonymous.spring.system.service.LogHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,15 +15,15 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Service
-public class LoginHistoryServiceImpl implements LoginHistoryService {
+public class LogHistoryServiceImpl implements LogHistoryService {
 
-    private final Logger logger = LoggerFactory.getLogger(LoginHistoryServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(LogHistoryServiceImpl.class);
 
     private final UserRepository userRepository;
 
     private final LoginHistoryRepository loginHistoryRepository;
 
-    public LoginHistoryServiceImpl(LoginHistoryRepository loginHistoryRepository, UserRepository userRepository) {
+    public LogHistoryServiceImpl(LoginHistoryRepository loginHistoryRepository, UserRepository userRepository) {
         this.loginHistoryRepository = loginHistoryRepository;
         this.userRepository = userRepository;
     }

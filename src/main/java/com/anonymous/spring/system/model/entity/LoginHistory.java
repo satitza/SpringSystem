@@ -28,10 +28,12 @@ public class LoginHistory implements Serializable {
     private String ipAddress;
 
     // login user
-
-    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
+    @ManyToOne(optional = false)
     private User loginUser;
+
+    /*@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "loginHistory")
+    private Collection<RequestHistory> requestHistories;*/
 
     public Long getId() {
         return id;

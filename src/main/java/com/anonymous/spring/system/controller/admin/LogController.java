@@ -1,8 +1,8 @@
 package com.anonymous.spring.system.controller.admin;
 
 import com.anonymous.spring.system.model.entity.LoginHistory;
-import com.anonymous.spring.system.service.LoginHistoryService;
-import com.anonymous.spring.system.service.impl.LoginHistoryServiceImpl;
+import com.anonymous.spring.system.service.LogHistoryService;
+import com.anonymous.spring.system.service.impl.LogHistoryServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,15 +13,15 @@ import java.util.Collection;
 @RequestMapping("/api/log")
 public class LogController {
 
-    private final LoginHistoryService loginHistoryService;
+    private final LogHistoryService logHistoryService;
 
-    public LogController(LoginHistoryServiceImpl loginHistoryService) {
-        this.loginHistoryService = loginHistoryService;
+    public LogController(LogHistoryServiceImpl loginHistoryService) {
+        this.logHistoryService = loginHistoryService;
     }
 
     @GetMapping
     public Collection<LoginHistory> getAllHistory() {
-        return this.loginHistoryService.getAllHistory();
+        return this.logHistoryService.getAllHistory();
     }
 
 }

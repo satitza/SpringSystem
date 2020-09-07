@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -29,11 +30,12 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
 
     @Override
     @Transactional
-    public void saveLog(UserDetails userDetails, String ipAddress) {
+    public void saveLogLogin(UserDetails userDetails, String ipAddress) {
         try {
 
             logger.info(String.format("Login username : %s", userDetails.getUsername()));
-            logger.info(String.format("Login from address : %s", ipAddress));
+            logger.info(String.format("Login from ip address : %s", ipAddress));
+            logger.info(String.format("Login date time : %s", LocalDateTime.now()));
 
             LoginHistory loginHistory = new LoginHistory();
             loginHistory.setIpAddress(ipAddress);
@@ -48,6 +50,27 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
     }
 
     @Override
+    @Transactional
+    public void saveLogLogout(UserDetails userDetails, String ipAddress) {
+        try {
+
+            logger.info(String.format("Logout username : %s", userDetails.getUsername()));
+            logger.info(String.format("Logout from ip address : %s", ipAddress));
+            logger.info(String.format("Logout date time : %s", LocalDateTime.now()));
+
+            Collection<LoginHistory> loginHistories = this.loginHistoryRepository.findAllByLoginUserAndIpAddressAndLogoutDateTime(this.userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new Exception("Not found user for update log logout.")), ipAddress, null);
+            for (LoginHistory loginHistory : loginHistories) {
+                loginHistory.setLogoutDateTime(LocalDateTime.now());
+            }
+
+            this.loginHistoryRepository.saveAll(loginHistories);
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    @Override
     public Collection<LoginHistory> getAllHistory() {
         return this.loginHistoryRepository.findAll();
     }
@@ -55,5 +78,16 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
     @Override
     public Collection<LoginHistory> getAllHistoryByUsername(String username) {
         return null;
+    }
+
+    public static String getClientIp(HttpServletRequest request) {
+        String remoteAddr = "";
+        if (request != null) {
+            remoteAddr = request.getHeader("X-FORWARDED-FOR");
+            if (remoteAddr == null || "".equals(remoteAddr)) {
+                remoteAddr = request.getRemoteAddr();
+            }
+        }
+        return remoteAddr;
     }
 }

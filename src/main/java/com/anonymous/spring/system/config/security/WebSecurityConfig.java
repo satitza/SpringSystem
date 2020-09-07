@@ -1,11 +1,8 @@
 package com.anonymous.spring.system.config.security;
 
-import com.anonymous.spring.system.model.entity.Role;
 import com.anonymous.spring.system.model.enums.AuthorityEnum;
 import com.anonymous.spring.system.model.enums.RoleEnum;
-import com.anonymous.spring.system.service.LoginHistoryService;
 import com.anonymous.spring.system.service.impl.LoginHistoryServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,7 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
@@ -84,6 +81,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuthFailureHandler();
     }
 
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new LogoutSuccessHandlerImpl(this.loginHistoryService);
+    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf()/*.disable()*/.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -125,7 +127,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
-                .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)));
+                .logoutSuccessHandler(logoutSuccessHandler());
     }
 }
 

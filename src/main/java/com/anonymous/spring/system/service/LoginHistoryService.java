@@ -7,7 +7,9 @@ import java.util.Collection;
 
 public interface LoginHistoryService {
 
-    void saveLog(UserDetails userDetails, String ipAddress);
+    void saveLogLogin(UserDetails userDetails, String ipAddress);
+
+    void saveLogLogout(UserDetails userDetails, String ipAddress);
 
     Collection<LoginHistory> getAllHistory();
 

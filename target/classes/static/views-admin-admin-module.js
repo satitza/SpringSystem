@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"animated fadeIn\">\r\n  <table class=\"table table-dark\" *ngIf=\"loginHistorys\">\r\n    <thead>\r\n    <tr>\r\n      <th scope=\"col\">#</th>\r\n      <th scope=\"col\">Username</th>\r\n      <th scope=\"col\">IP Address</th>\r\n      <th scope=\"col\">Login Date</th>\r\n    </tr>\r\n    </thead>\r\n    <tbody>\r\n    <tr *ngFor=\"let login of loginHistorys;let i = index;\">\r\n      <th scope=\"row\">{{ i + 1 }}</th>\r\n      <td>{{ login.loginUser.username }}</td>\r\n      <td>{{ login.ipAddress }}</td>\r\n      <td>{{ login.loginDateTime }}</td>\r\n    </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"animated fadeIn\">\n  <table class=\"table table-dark\" *ngIf=\"loginHistorys\">\n    <thead>\n    <tr>\n      <th scope=\"col\">#</th>\n      <th scope=\"col\">Username</th>\n      <th scope=\"col\">IP Address</th>\n      <th scope=\"col\">Login Date</th>\n      <th scope=\"col\">Logout Date</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr *ngFor=\"let login of loginHistorys;let i = index;\">\n      <th scope=\"row\">{{ i + 1 }}</th>\n      <td>{{ login.loginUser.username }}</td>\n      <td>{{ login.ipAddress }}</td>\n      <td>{{ login.loginDateTime }}</td>\n      <td>{{ login.logoutDateTime }}</td>\n    </tr>\n    </tbody>\n  </table>\n</div>\n\n");
 
 /***/ }),
 

@@ -19,6 +19,10 @@ public class LoginHistory implements Serializable {
     @Column(name = "login_date")
     private LocalDateTime loginDateTime;
 
+    // logout date time
+    @Column(name = "logout_date")
+    private LocalDateTime logoutDateTime;
+
     // login from ip
     @Column(name = "ip_adress")
     private String ipAddress;
@@ -51,6 +55,14 @@ public class LoginHistory implements Serializable {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public LocalDateTime getLogoutDateTime() {
+        return logoutDateTime;
+    }
+
+    public void setLogoutDateTime(LocalDateTime logoutDateTime) {
+        this.logoutDateTime = logoutDateTime;
     }
 
     public User getLoginUser() {

@@ -1,4 +1,4 @@
-package com.anonymous.spring.system.controller.admin;
+package com.anonymous.spring.system.http.controller.admin;
 
 import com.anonymous.spring.system.model.entity.LoginHistory;
 import com.anonymous.spring.system.service.LogHistoryService;
@@ -20,8 +20,7 @@ public class LogController {
     }
 
     @GetMapping
-    public Collection<LoginHistory> getAllHistory() {
-        return this.logHistoryService.getAllHistory();
+    public Collection<LoginHistory> getAllLoginHistory() {
+        return this.logHistoryService.getAllLoginHistory();
     }
-
 }

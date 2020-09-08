@@ -4,6 +4,7 @@ import com.anonymous.spring.system.model.entity.LoginHistory;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
 
 public interface LogHistoryService {
 
@@ -11,7 +12,7 @@ public interface LogHistoryService {
 
     void saveLogLogout(UserDetails userDetails, String ipAddress);
 
-    Collection<LoginHistory> getAllHistory();
+    Collection<LoginHistory> getAllLoginHistory();
 
-    Collection<LoginHistory> getAllHistoryByUsername(String username);
+    Collection<LoginHistory> getAllLoginHistoryByUsername(String username);
 }

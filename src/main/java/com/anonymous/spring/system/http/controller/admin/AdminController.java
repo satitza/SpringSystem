@@ -1,4 +1,4 @@
-package com.anonymous.spring.system.controller.admin;
+package com.anonymous.spring.system.http.controller.admin;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

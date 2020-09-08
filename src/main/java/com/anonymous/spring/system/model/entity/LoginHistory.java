@@ -3,6 +3,7 @@ package com.anonymous.spring.system.model.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name = "LOGIN_HISTORY")
@@ -32,8 +33,8 @@ public class LoginHistory implements Serializable {
     @ManyToOne(optional = false)
     private User loginUser;
 
-    /*@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "loginHistory")
-    private Collection<RequestHistory> requestHistories;*/
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "loginHistory")
+    private Collection<RequestHistory> requestHistories;
 
     public Long getId() {
         return id;
@@ -73,5 +74,13 @@ public class LoginHistory implements Serializable {
 
     public void setLoginUser(User loginUser) {
         this.loginUser = loginUser;
+    }
+
+    public Collection<RequestHistory> getRequestHistories() {
+        return requestHistories;
+    }
+
+    public void setRequestHistories(Collection<RequestHistory> requestHistories) {
+        this.requestHistories = requestHistories;
     }
 }

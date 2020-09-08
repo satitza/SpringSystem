@@ -93,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/public/**").permitAll()
+                .antMatchers("/public/**", "/api/log/**").permitAll()
                 .and()
                 .authorizeRequests()
                 /*.antMatchers("/api/**").authenticated()*/
@@ -104,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/**").hasRole(RoleEnum.ADMIN.getValue())
                 .antMatchers("/api/admin/read").hasAuthority(AuthorityEnum.READ_API.getValue())
                 .antMatchers("/api/admin/edit").hasAuthority(AuthorityEnum.EDIT_API.getValue())
-                .antMatchers("/api/log/**").hasRole(RoleEnum.ADMIN.getValue())
+                /*.antMatchers("/api/log/**").hasRole(RoleEnum.ADMIN.getValue())*/
                 .antMatchers("/actuator/**").hasRole(RoleEnum.ADMIN.getValue())
                 .and()
                 .exceptionHandling()

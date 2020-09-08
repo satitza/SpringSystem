@@ -27,9 +27,9 @@ public class RequestHistory implements Serializable {
     @Column(name = "request_body")
     private String requestBody;
 
-    /*@JoinColumn(name = "login_id")
+    @JoinColumn(name = "login_id")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private LoginHistory loginHistory;*/
+    private LoginHistory loginHistory;
 
     public Long getId() {
         return id;
@@ -69,5 +69,13 @@ public class RequestHistory implements Serializable {
 
     public void setRequestBody(String requestBody) {
         this.requestBody = requestBody;
+    }
+
+    public LoginHistory getLoginHistory() {
+        return loginHistory;
+    }
+
+    public void setLoginHistory(LoginHistory loginHistory) {
+        this.loginHistory = loginHistory;
     }
 }

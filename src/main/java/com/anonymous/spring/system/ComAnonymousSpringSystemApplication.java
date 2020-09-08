@@ -6,13 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EntityScan(basePackages = "com.anonymous.spring.system.model.entity")
 public class ComAnonymousSpringSystemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ComAnonymousSpringSystemApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ComAnonymousSpringSystemApplication.class, args);
+    }
 
 }

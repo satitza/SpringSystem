@@ -1,6 +1,7 @@
 package com.anonymous.spring.system.service.impl;
 
 import com.anonymous.spring.system.model.entity.LoginHistory;
+import com.anonymous.spring.system.model.entity.RequestHistory;
 import com.anonymous.spring.system.repository.LoginHistoryRepository;
 import com.anonymous.spring.system.repository.UserRepository;
 import com.anonymous.spring.system.service.LogHistoryService;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class LogHistoryServiceImpl implements LogHistoryService {
@@ -81,6 +81,20 @@ public class LogHistoryServiceImpl implements LogHistoryService {
     @Override
     public Collection<LoginHistory> getAllLoginHistoryByUsername(String username) {
         return null;
+    }
+
+    @Override
+    @Async("asyncExecutor")
+    public void addHttpRequestLog(RequestHistory requestHistory, String username, String ipAddress) {
+
+        logger.info(String.format("Request from user : %s", username));
+        logger.info(String.format("Request from ip address : %s", ipAddress));
+        logger.info(String.format("Request method : %s", requestHistory.getRequestMethod()));
+        logger.info(String.format("Request path : %s", requestHistory.getRequestPath()));
+
+        logger.info("--------------------------------------------------------------------------------------------------------------");
+
+        // Collection<LoginHistory> loginHistories = this.loginHistoryRepository.findAllByLoginUserAndIpAddressAndLogoutDateTime(username, ipAddress, null)
     }
 
     public static String getClientIp(HttpServletRequest request) {

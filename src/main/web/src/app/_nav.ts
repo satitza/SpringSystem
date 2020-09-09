@@ -15,6 +15,11 @@ export const navItems: INavData[] = [
     url: '/admin',
     children: [
       {
+        name: 'User',
+        url: '/admin/user',
+        icon: 'icon-puzzle'
+      },
+      {
         name: 'History',
         url: '/admin/history',
         icon: 'icon-pencil'

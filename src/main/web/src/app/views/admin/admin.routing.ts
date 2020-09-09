@@ -1,6 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {LogHistoryComponent} from "./log-history/log-history.component";
+import {UserComponent} from "./user/user.component";
 
 export const routes: Routes = [
   {
@@ -11,7 +12,14 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'history'
+        redirectTo: 'user'
+      },
+      {
+        path: 'user',
+        data: {
+          title: 'User'
+        },
+        component: UserComponent
       },
       {
         path: 'history',

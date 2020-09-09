@@ -5,6 +5,7 @@ import com.anonymous.spring.system.service.LogHistoryService;
 import com.anonymous.spring.system.service.impl.LogHistoryServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -31,15 +32,18 @@ public class HttpRequestFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
 
         if (req.getUserPrincipal() != null) {
-            RequestHistory requestHistory = new RequestHistory();
-            requestHistory.setRequestMethod(req.getMethod());
-            requestHistory.setRequestPath(req.getRequestURI());
-            requestHistory.setRequestDateTime(LocalDateTime.now());
 
-            try {
-                this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
-            } catch (Exception ex) {
-                logger.error(ex.getMessage());
+            if (req.getMethod() == HttpMethod.GET.name()) {
+                RequestHistory requestHistory = new RequestHistory();
+                requestHistory.setRequestMethod(req.getMethod());
+                requestHistory.setRequestPath(req.getRequestURI());
+                requestHistory.setRequestDateTime(LocalDateTime.now());
+
+                try {
+                    this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
+                } catch (Exception ex) {
+                    logger.error(ex.getMessage());
+                }
             }
         }
 

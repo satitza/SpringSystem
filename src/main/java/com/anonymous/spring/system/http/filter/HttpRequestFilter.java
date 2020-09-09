@@ -35,8 +35,12 @@ public class HttpRequestFilter implements Filter {
             requestHistory.setRequestMethod(req.getMethod());
             requestHistory.setRequestPath(req.getRequestURI());
             requestHistory.setRequestDateTime(LocalDateTime.now());
-            this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
-            logger.info("This line after add http request log execute ....");
+
+            try {
+                this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
+            } catch (Exception ex) {
+                logger.error(ex.getMessage());
+            }
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

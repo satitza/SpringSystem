@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.Future;
 
 @Service
 public class LogHistoryServiceImpl implements LogHistoryService {
@@ -91,10 +93,20 @@ public class LogHistoryServiceImpl implements LogHistoryService {
         logger.info(String.format("Request from ip address : %s", ipAddress));
         logger.info(String.format("Request method : %s", requestHistory.getRequestMethod()));
         logger.info(String.format("Request path : %s", requestHistory.getRequestPath()));
+        logger.info(String.format("Request date time : %s", requestHistory.getRequestDateTime()));
+
+        try {
+            Future<LoginHistory> loginHistoryFuture = this.loginHistoryRepository.findTopByLoginUserAndIpAddressAndLogoutDateTimeOrderByIdDesc(this.userRepository.findByUsername(username).orElseThrow(() -> new Exception("Not found login history for stored request.")), ipAddress, null);
+            LoginHistory loginHistory = loginHistoryFuture.get();
+            Collection<RequestHistory> requestHistories = new ArrayList<>();
+            requestHistories.add(requestHistory);
+            loginHistory.setRequestHistories(requestHistories);
+            this.loginHistoryRepository.save(loginHistory);
+        } catch (Exception ex) {
+            throw new RuntimeException("Error cannot stored http request log.");
+        }
 
         logger.info("--------------------------------------------------------------------------------------------------------------");
-
-        // Collection<LoginHistory> loginHistories = this.loginHistoryRepository.findAllByLoginUserAndIpAddressAndLogoutDateTime(username, ipAddress, null)
     }
 
     public static String getClientIp(HttpServletRequest request) {

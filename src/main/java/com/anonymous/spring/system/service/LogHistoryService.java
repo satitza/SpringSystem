@@ -17,5 +17,5 @@ public interface LogHistoryService {
 
     Collection<LoginHistory> getAllLoginHistoryByUsername(String username);
 
-    void addHttpRequestLog(RequestHistory requestHistory, String username, String ipAddress);
+    void addHttpRequestLog(RequestHistory requestHistory, String username, String ipAddress) throws Exception;
 }

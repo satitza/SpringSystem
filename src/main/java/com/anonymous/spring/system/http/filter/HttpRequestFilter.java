@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @Component
 public class HttpRequestFilter implements Filter {
@@ -30,24 +31,26 @@ public class HttpRequestFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
+        MultiReadHttpServletRequest multiReadHttpServletRequest = new MultiReadHttpServletRequest(req);
 
         if (req.getUserPrincipal() != null) {
+            RequestHistory requestHistory = new RequestHistory();
+            requestHistory.setRequestMethod(req.getMethod());
+            requestHistory.setRequestPath(req.getRequestURI());
+            requestHistory.setRequestDateTime(LocalDateTime.now());
 
-            if (req.getMethod() == HttpMethod.GET.name()) {
-                RequestHistory requestHistory = new RequestHistory();
-                requestHistory.setRequestMethod(req.getMethod());
-                requestHistory.setRequestPath(req.getRequestURI());
-                requestHistory.setRequestDateTime(LocalDateTime.now());
+            if (requestHistory.getRequestMethod().equalsIgnoreCase("POST")) {
+                requestHistory.setRequestBody(multiReadHttpServletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+            }
 
-                try {
-                    this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
-                } catch (Exception ex) {
-                    logger.error(ex.getMessage());
-                }
+            try {
+                this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
+            } catch (Exception ex) {
+                logger.error(ex.getMessage());
             }
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(multiReadHttpServletRequest, servletResponse);
     }
 
     @Override

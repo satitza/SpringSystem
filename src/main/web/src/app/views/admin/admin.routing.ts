@@ -17,7 +17,7 @@ export const routes: Routes = [
       {
         path: 'user',
         data: {
-          title: 'User'
+          title: 'Add User'
         },
         component: UserComponent
       },

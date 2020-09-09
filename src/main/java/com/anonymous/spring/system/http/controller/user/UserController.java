@@ -48,8 +48,16 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@Validated User user) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.userService.saveUser(user));
+    public ResponseEntity<Object> saveUser(@RequestBody User user) {
+
+        logger.info(String.format("First name : %s", user.getFirstName()));
+        logger.info(String.format("Last name : %s", user.getLastName()));
+        logger.info(String.format("Email : %s", user.getEmail()));
+        logger.info(String.format("Username : %s", user.getUsername()));
+        logger.info(String.format("Password : %s", user.getPassword()));
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+        //return ResponseEntity.status(HttpStatus.OK).body(this.userService.saveUser(user));
     }
 
     @PostMapping("/delete/{id}")

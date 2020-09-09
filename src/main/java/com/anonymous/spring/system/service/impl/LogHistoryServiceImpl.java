@@ -7,7 +7,6 @@ import com.anonymous.spring.system.repository.UserRepository;
 import com.anonymous.spring.system.service.LogHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,8 +100,6 @@ public class LogHistoryServiceImpl implements LogHistoryService {
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
-
-        logger.info("--------------------------------------------------------------------------------------------------------------");
     }
 
     public static String getClientIp(HttpServletRequest request) {

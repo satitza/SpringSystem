@@ -24,6 +24,7 @@ public class RequestHistory implements Serializable {
     @Column(name = "request_date_time")
     private LocalDateTime requestDateTime;
 
+    @Lob
     @Column(name = "request_body")
     private String requestBody;
 

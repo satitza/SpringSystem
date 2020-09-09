@@ -1,9 +1,12 @@
 package com.anonymous.spring.system.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "LOGIN_HISTORY")
@@ -33,8 +36,9 @@ public class LoginHistory implements Serializable {
     @ManyToOne(optional = false)
     private User loginUser;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "loginHistory")
-    private Collection<RequestHistory> requestHistories;
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "loginHistory")
+    private List<RequestHistory> requestHistories;
 
     public Long getId() {
         return id;
@@ -76,11 +80,20 @@ public class LoginHistory implements Serializable {
         this.loginUser = loginUser;
     }
 
-    public Collection<RequestHistory> getRequestHistories() {
+    public List<RequestHistory> getRequestHistories() {
         return requestHistories;
     }
 
-    public void setRequestHistories(Collection<RequestHistory> requestHistories) {
+    public void setRequestHistories(List<RequestHistory> requestHistories) {
         this.requestHistories = requestHistories;
+    }
+
+    public void add(RequestHistory requestHistory) {
+        if (requestHistories == null) {
+            requestHistories = new ArrayList<>();
+        }
+
+        requestHistories.add(requestHistory);
+        requestHistory.setLoginHistory(this);
     }
 }

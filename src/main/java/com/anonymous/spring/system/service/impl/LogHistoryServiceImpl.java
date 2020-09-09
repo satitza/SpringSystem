@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.Future;
 
@@ -26,7 +25,6 @@ public class LogHistoryServiceImpl implements LogHistoryService {
     private final UserRepository userRepository;
 
     private final LoginHistoryRepository loginHistoryRepository;
-
 
     public LogHistoryServiceImpl(LoginHistoryRepository loginHistoryRepository, UserRepository userRepository) {
         this.loginHistoryRepository = loginHistoryRepository;
@@ -86,7 +84,7 @@ public class LogHistoryServiceImpl implements LogHistoryService {
     }
 
     @Override
-    @Async("asyncExecutor")
+    @Transactional
     public void addHttpRequestLog(RequestHistory requestHistory, String username, String ipAddress) {
 
         logger.info(String.format("Request from user : %s", username));
@@ -98,12 +96,10 @@ public class LogHistoryServiceImpl implements LogHistoryService {
         try {
             Future<LoginHistory> loginHistoryFuture = this.loginHistoryRepository.findTopByLoginUserAndIpAddressAndLogoutDateTimeOrderByIdDesc(this.userRepository.findByUsername(username).orElseThrow(() -> new Exception("Not found login history for stored request.")), ipAddress, null);
             LoginHistory loginHistory = loginHistoryFuture.get();
-            Collection<RequestHistory> requestHistories = new ArrayList<>();
-            requestHistories.add(requestHistory);
-            loginHistory.setRequestHistories(requestHistories);
+            loginHistory.add(requestHistory);
             this.loginHistoryRepository.save(loginHistory);
         } catch (Exception ex) {
-            throw new RuntimeException("Error cannot stored http request log.");
+            throw new RuntimeException(ex.getMessage());
         }
 
         logger.info("--------------------------------------------------------------------------------------------------------------");

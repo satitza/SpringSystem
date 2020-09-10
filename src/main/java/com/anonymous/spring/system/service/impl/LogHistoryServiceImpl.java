@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.concurrent.Future;
 
 @Service
 public class LogHistoryServiceImpl implements LogHistoryService {
@@ -101,6 +100,11 @@ public class LogHistoryServiceImpl implements LogHistoryService {
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
+    }
+
+    @Override
+    public Integer sumLogin() {
+        return this.loginHistoryRepository.sumLoginHistory();
     }
 
     public static String getClientIp(HttpServletRequest request) {

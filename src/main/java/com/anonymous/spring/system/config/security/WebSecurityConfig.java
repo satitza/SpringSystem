@@ -2,7 +2,9 @@ package com.anonymous.spring.system.config.security;
 
 import com.anonymous.spring.system.model.enums.AuthorityEnum;
 import com.anonymous.spring.system.model.enums.RoleEnum;
+import com.anonymous.spring.system.service.NotifyService;
 import com.anonymous.spring.system.service.impl.LogHistoryServiceImpl;
+import com.anonymous.spring.system.service.impl.NotifyServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -34,11 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LogHistoryServiceImpl logHistoryService;
 
-    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider, LogHistoryServiceImpl logHistoryService) {
+    private final NotifyServiceImpl notifyService;
+
+    public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider, LogHistoryServiceImpl logHistoryService, NotifyServiceImpl notifyService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.activeDirectoryLdapAuthenticationProvider = activeDirectoryLdapAuthenticationProvider;
         this.logHistoryService = logHistoryService;
+        this.notifyService = notifyService;
     }
 
     @Override
@@ -72,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthSuccessHandler authSuccessHandler() {
-        return new AuthSuccessHandler(this.logHistoryService);
+        return new AuthSuccessHandler(this.logHistoryService, this.notifyService);
     }
 
     @Bean

@@ -15,7 +15,7 @@ public interface LoginHistoryRepository extends JpaRepository<LoginHistory, Long
 
     Collection<LoginHistory> findAllByLoginUserAndIpAddressAndLogoutDateTime(User user, String ipAddress, LocalDateTime date);
 
-    @Async("asyncExecutor")
-    Future<LoginHistory> findTopByLoginUserAndIpAddressAndLogoutDateTimeOrderByIdDesc(User user, String ipAddress, LocalDateTime date);
-
+    /*@Async("asyncExecutor")*/
+    LoginHistory findTopByLoginUserAndIpAddressAndLogoutDateTimeOrderByIdDesc(User user, String ipAddress, LocalDateTime date);
+    
 }

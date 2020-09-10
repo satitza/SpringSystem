@@ -7,6 +7,7 @@ import com.anonymous.spring.system.repository.UserRepository;
 import com.anonymous.spring.system.service.LogHistoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,6 +85,7 @@ public class LogHistoryServiceImpl implements LogHistoryService {
 
     @Override
     @Transactional
+    @Async("asyncExecutor")
     public void addHttpRequestLog(RequestHistory requestHistory, String username, String ipAddress) {
 
         logger.info(String.format("Request from user : %s", username));
@@ -93,8 +95,7 @@ public class LogHistoryServiceImpl implements LogHistoryService {
         logger.info(String.format("Request date time : %s", requestHistory.getRequestDateTime()));
 
         try {
-            Future<LoginHistory> loginHistoryFuture = this.loginHistoryRepository.findTopByLoginUserAndIpAddressAndLogoutDateTimeOrderByIdDesc(this.userRepository.findByUsername(username).orElseThrow(() -> new Exception("Not found login history for stored request.")), ipAddress, null);
-            LoginHistory loginHistory = loginHistoryFuture.get();
+            LoginHistory loginHistory = this.loginHistoryRepository.findTopByLoginUserAndIpAddressAndLogoutDateTimeOrderByIdDesc(this.userRepository.findByUsername(username).orElseThrow(() -> new Exception("Not found login history for stored request.")), ipAddress, null);
             loginHistory.add(requestHistory);
             this.loginHistoryRepository.save(loginHistory);
         } catch (Exception ex) {

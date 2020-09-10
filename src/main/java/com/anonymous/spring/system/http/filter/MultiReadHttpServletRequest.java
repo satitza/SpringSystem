@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 
@@ -27,7 +28,7 @@ public class MultiReadHttpServletRequest extends HttpServletRequestWrapper {
 
     @Override
     public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(getInputStream(), Charset.forName("UTF-8")));
+        return new BufferedReader(new InputStreamReader(getInputStream(), StandardCharsets.UTF_8));
     }
 
     private void cacheInputStream() throws IOException {

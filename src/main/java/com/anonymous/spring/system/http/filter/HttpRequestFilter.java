@@ -33,24 +33,24 @@ public class HttpRequestFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         MultiReadHttpServletRequest multiReadHttpServletRequest = new MultiReadHttpServletRequest(req);
 
-        if (req.getUserPrincipal() != null) {
-            RequestHistory requestHistory = new RequestHistory();
-            requestHistory.setRequestMethod(req.getMethod());
-            requestHistory.setRequestPath(req.getRequestURI());
-            requestHistory.setRequestDateTime(LocalDateTime.now());
+        try {
+            if (req.getUserPrincipal() != null) {
 
-            if (requestHistory.getRequestMethod().equalsIgnoreCase("POST")) {
-                requestHistory.setRequestBody(multiReadHttpServletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
-            }
+                RequestHistory requestHistory = new RequestHistory();
+                requestHistory.setRequestMethod(req.getMethod());
+                requestHistory.setRequestPath(req.getRequestURI());
+                requestHistory.setRequestDateTime(LocalDateTime.now());
 
-            try {
+                if (requestHistory.getRequestMethod().equalsIgnoreCase("POST")) {
+                    requestHistory.setRequestBody(multiReadHttpServletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+                }
                 this.logHistoryService.addHttpRequestLog(requestHistory, req.getUserPrincipal().getName(), req.getRemoteAddr());
-            } catch (Exception ex) {
-                logger.error(ex.getMessage());
             }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        } finally {
+            filterChain.doFilter(multiReadHttpServletRequest, servletResponse);
         }
-
-        filterChain.doFilter(multiReadHttpServletRequest, servletResponse);
     }
 
     @Override

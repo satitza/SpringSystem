@@ -11,6 +11,10 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/api/user');
+  }
+
   getAllAuthorities(): Observable<Authority[]> {
     return this.http.get<Authority[]>('api/authority');
   }

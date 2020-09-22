@@ -1,4 +1,3 @@
-import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {ReplaySubject} from "rxjs";
 
@@ -16,7 +15,6 @@ export class LoginNotifyWebSocket {
   _connect() {
     console.log("Initialize WebSocket Connection");
     let ws = new SockJS(webSocketEndPoint);
-    this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, frame => {
         this.stompClient.subscribe(topic, sdkEvent => {
           this.onMessageReceived(sdkEvent);

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.23.603 on 2020-09-10 14:05:13.
+// Generated using typescript-generator version 2.23.603 on 2020-09-18 11:38:33.
 
 export interface Page<T> extends Slice<T> {
     totalPages?: number;
@@ -12,8 +12,8 @@ export interface Slice<T> extends Streamable<T> {
     sort?: any;
     size?: number;
     content?: T[];
-    numberOfElements?: number;
     first?: boolean;
+    numberOfElements?: number;
     last?: boolean;
     pageable?: Pageable;
 }

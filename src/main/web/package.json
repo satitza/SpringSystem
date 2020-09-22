@@ -51,8 +51,6 @@
     "ngx-bootstrap": "^5.6.1",
     "ngx-perfect-scrollbar": "^9.0.0",
     "rxjs": "^6.6.0",
-    "sockjs-client": "^1.4.0",
-    "stompjs": "^2.3.3",
     "simple-line-icons": "^2.5.2",
     "ts-helpers": "^1.1.2",
     "tslib": "^1.13.0",

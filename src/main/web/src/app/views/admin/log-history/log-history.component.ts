@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from "../service/admin.service";
 import {LoginHistory} from "../../../../generated-model/model";
-import {LoginNotifyWebSocket} from "../../../shared/websocket/LoginNotifyWebSocket";
 
 @Component({
   selector: 'app-log-history',
@@ -13,13 +12,10 @@ export class LogHistoryComponent implements OnInit {
   loginHistorys: LoginHistory[];
   sumUserLogin: number = 0;
 
-  sumLoginWebSocket: LoginNotifyWebSocket;
-
   constructor(private adminService: AdminService) {
   }
 
   ngOnInit(): void {
-    this.initialWebSocket();
     this.getAllHistory();
   }
 
@@ -28,18 +24,6 @@ export class LogHistoryComponent implements OnInit {
       if (res) {
         this.loginHistorys = res;
       }
-    });
-  }
-
-  initialWebSocket() {
-    this.initialUserLoginWebSocket();
-  }
-
-  initialUserLoginWebSocket() {
-    this.sumLoginWebSocket = new LoginNotifyWebSocket();
-    this.sumLoginWebSocket._connect();
-    this.sumLoginWebSocket.response.subscribe(e => {
-      this.sumUserLogin = e;
     });
   }
 }

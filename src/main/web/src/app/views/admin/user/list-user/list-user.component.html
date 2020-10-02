@@ -1,0 +1,36 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-success" routerLink="../add-user">
+        Add User
+      </button>
+    </div>
+  </div>
+  <br>
+  <table class="table table-sm" *ngIf="users.length > 0">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Username</th>
+      <th scope="col">Activate</th>
+      <td scope="col"></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users;let i = index;">
+      <td>{{ i + 1 }}</td>
+      <td>{{ user.firstName + ' ' + user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.activated }}</td>
+      <td>
+        <button class="btn btn-warning">
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminService} from "../service/admin.service";
-import {Authority, Role, User} from "../../../../generated-model/model";
+import {AdminService} from "../../service/admin.service";
+import {Authority, Role, User} from "../../../../../generated-model/model";
 
 @Component({
   selector: 'app-user',
